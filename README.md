@@ -19,6 +19,7 @@
   ## Usage
   The application is initialized from the command line with "node index". Users will be prompted to answer various questions about their employee's information. When finished, select "finalize team" and check the /dist folder for the generated HTML page.
 
+[Check out a video of this application in action here!](https://drive.google.com/file/d/132HQUjpwnfG_BxoOkFTwxq6BnayFMW7d/view)
   
 
   ## Contribution
