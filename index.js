@@ -1,3 +1,4 @@
+// grabbing neccessary modules
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generateFile = require('./src/page-template');
@@ -5,6 +6,7 @@ const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
 
+// employee constructor onject where program is created and data is stored
 function employeeData() {
 
     this.manager;
@@ -13,8 +15,10 @@ function employeeData() {
 
 }
 
+// function to write the HTML file
 employeeData.prototype.writeFile = function() {
     
+    // sends the data stored in the employeeData object to the generateFile function
     const pageContent = generateFile(this);
 
     return new Promise((resolve, reject) => {
@@ -25,12 +29,15 @@ employeeData.prototype.writeFile = function() {
           }
           resolve({
             ok: true,
-            message: 'File created!'
           });
         });
-    });
+    })
+    .then(
+        console.log("HTML generated. Check the dist folder!")
+    )
 
 }
+// function to allow users to c hoose between entering employee info or generating the HTML
 employeeData.prototype.chooseNext = function() {
 
     inquirer
@@ -53,6 +60,7 @@ employeeData.prototype.chooseNext = function() {
     })
 }
 
+// function to enter engineer data
 employeeData.prototype.addEngineer = function() {
 
     inquirer
@@ -111,6 +119,7 @@ employeeData.prototype.addEngineer = function() {
             }
         }
     ])
+    // creates a new Engineer object with provided data and pushes it into employeeDatas engineers array
     .then((engineerData) => {   
 
         this.engineers.push(new Engineer(engineerData.name, engineerData.id, engineerData.email, engineerData.github));
@@ -177,6 +186,7 @@ employeeData.prototype.addIntern = function() {
             }
         }
     ])
+    // creates a new Intern object with provided data and pushes it into employeeDatas interns array
     .then((internData) => {   
 
         this.interns.push(new Intern(internData.name, internData.id, internData.email, internData.school));
@@ -184,6 +194,7 @@ employeeData.prototype.addIntern = function() {
         this.chooseNext();
     })
 }
+// starts the application by allowing user to enter information on their team manager
 employeeData.prototype.initializeApp = function() {                 
 
     inquirer
@@ -242,6 +253,7 @@ employeeData.prototype.initializeApp = function() {
         }
     }
     ])
+    // create a new Manager object using provided information and assign it to be employeeData's manager attribute
     .then((managerData) => {   
 
         this.manager = new Manager(managerData.name, managerData.id, managerData.email, managerData.office)
@@ -251,5 +263,5 @@ employeeData.prototype.initializeApp = function() {
 
 }
 
-
+// starts the application
 new employeeData().initializeApp();
