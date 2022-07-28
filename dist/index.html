@@ -1,9 +1,4 @@
-// const Manager = require('../lib/Manager')
-module.exports = templateData => {
 
-    const { interns, engineers, manager } = templateData
-
-    return `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -13,10 +8,7 @@ module.exports = templateData => {
         <title>Team Genrator Demo</title>
     </head>
     <body>
-        ${manager.getRole()}
+        Team Manager
     </body>
     </html>
-    `;
     
-    
-}

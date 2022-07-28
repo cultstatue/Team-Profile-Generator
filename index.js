@@ -1,8 +1,9 @@
 const inquirer = require('inquirer');
-const generateFile = require('./src/page-template')
-const Manager = require('./lib/Manager')
-const Intern = require('./lib/Intern')
-const Engineer = require('./lib/Engineer')
+const fs = require('fs');
+const generateFile = require('./src/page-template');
+const Manager = require('./lib/Manager');
+const Intern = require('./lib/Intern');
+const Engineer = require('./lib/Engineer');
 
 function employeeData() {
 
@@ -14,7 +15,21 @@ function employeeData() {
 
 employeeData.prototype.writeFile = function() {
     
-    generateFile(this);
+    const pageContent = generateFile(this);
+
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./dist/index.html', pageContent, err => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          resolve({
+            ok: true,
+            message: 'File created!'
+          });
+        });
+    });
+
 }
 employeeData.prototype.chooseNext = function() {
 
